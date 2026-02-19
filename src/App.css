@@ -200,15 +200,15 @@ em {
   50% { opacity: 0.15; transform: scale(1.1); }
 }
 
-/* On crée 3 zones d'explosions différentes */
 body::before, body::after, .container::before {
   content: "";
   position: fixed;
   border-radius: 50%;
-  filter: blur(40px);
+  filter: blur(2px); /* On passe de 40px à 2px pour que ce soit tranché */
   z-index: -1;
   opacity: 0;
   pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optionnel : ajoute un petit contour brillant */
 }
 
 /* Explosion 1 : Rose/Rouge */
@@ -223,18 +223,18 @@ body::before {
 body::after {
   width: 300px; height: 300px;
   top: 50%; right: 10%;
-  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
-  animation: explode 6s infinite ease-out 1s; /* Décalage de 1s */
+  /* On met 100% d'opacité au centre pour l'effet flash */
+  background: radial-gradient(circle, #00d4ff 10%, rgba(0, 212, 255, 0) 70%);
+  animation: explode 6s infinite ease-out 1s;
 }
 
 /* Explosion 3 : Violette */
 .container::before {
   width: 250px; height: 250px;
   bottom: 10%; left: 40%;
-  background: radial-gradient(circle, #9d00ff 0%, transparent 70%);
-  animation: explode 5s infinite ease-out 2s; /* Décalage de 2s */
+  background: radial-gradient(circle, #9d00ff 10%, rgba(157, 0, 255, 0) 70%);
+  animation: explode 5s infinite ease-out 2s;
 }
-
 /* L'ANIMATION DE L'EXPLOSION */
 @keyframes explode {
   0% {
@@ -444,24 +444,19 @@ body::after {
     text-align: left;
   }
 }
-.gradient-text {
-  font-size: 2.5rem;
+.typing-text {
+  font-size: 2rem;
   font-weight: 800;
-  background: linear-gradient(90deg, #fff, #7000ff, #00c2ff);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* RE-VOICI TON ANIMATION */
+  color: #00d2ff; /* Couleur vive et nette */
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   border-right: 4px solid #00d2ff;
   margin: 0 auto;
+  /* On ne garde que l'écriture et le clignotement */
   animation: 
-    typing 3.5s steps(40, end),
-    blink-caret 0.75s step-end infinite,
-    shine 4s linear infinite;
+    typing 2s steps(20, end), 
+    blink-caret 0.75s step-end infinite;
 }
 
 /* Les moteurs de l'animation */
@@ -515,4 +510,21 @@ body::after {
   33% { transform: translate(30vw, 20vh) scale(1.2); }
   66% { transform: translate(-10vw, 40vh) scale(0.8); }
   100% { transform: translate(10vw, -10vh) scale(1.1); }
+}
+@keyframes explode {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1; /* Le flash est instantané */
+  }
+  40% {
+    transform: scale(1.2); /* Elle grandit vite */
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2.5); /* Elle finit grande mais presque invisible */
+    opacity: 0;
+  }
 }
