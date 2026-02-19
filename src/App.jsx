@@ -34,10 +34,13 @@ function App() {
     <div className="container">
      <header className="futuristic-header">
   <div className="welcome-zone">
-    <h1 key={indexLangue} className="gradient-text">
-      {salutations[indexLangue].texte} {nom}
-    </h1>
+    <div className="typing-container">
+      <h1 key={indexLangue} className="typing-text">
+        {salutations[indexLangue].texte} {nom}
+      </h1>
+    </div>
   </div>
+</header>
   <div className="status-zone">
     <input 
       type="text" 
