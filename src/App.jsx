@@ -31,26 +31,27 @@ function App() {
   const jourActuel = date.getDay();
 
   return (
-    <div className="container">
-     <header className="futuristic-header">
-  <div className="welcome-zone">
-    <div className="typing-container">
-      <h1 key={indexLangue} className="typing-text">
-        {salutations[indexLangue].texte} {nom}
-      </h1>
-    </div>
-  </div>
-</header>
-  <div className="status-zone">
-    <input 
-      type="text" 
-      value={nom} 
-      onChange={(e) => setNom(e.target.value.toUpperCase())}
-      className="modern-input"
-    />
-  </div>
-</header>
-       <div className="week-selector">
+   <div className="container">
+      {/* Effet de fond étoiles */}
+      <header className="futuristic-header">
+        <div className="welcome-zone">
+          <div className="typing-container">
+            <h1 key={indexLangue} className="typing-text">
+              {salutations[indexLangue].texte} {nom}
+            </h1>
+          </div>
+        </div>
+        <div className="status-zone">
+          <input 
+            type="text" 
+            value={nom} 
+            onChange={(e) => setNom(e.target.value.toUpperCase())}
+            placeholder="TON NOM"
+          />
+        </div>
+      </header>
+
+      <div className="week-selector">
       <button 
        className={semaineHaute ? "active" : ""} 
         onClick={() => setSemaineHaute(true)}
