@@ -1,0 +1,284 @@
+/* --- Base et Arrière-plan --- */
+:root {
+  --primary-glow: #646cff;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #0a0a0c;
+  /* On crée plusieurs couches de couleurs */
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 0, 100, 0.2) 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, rgba(0, 200, 255, 0.2) 0%, transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(150, 0, 255, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(255, 200, 0, 0.15) 0%, transparent 20%);
+  background-size: 200% 200%; /* On agrandit le fond pour pouvoir le faire bouger */
+  animation: moveBackground 15s infinite alternate ease-in-out;
+  background-attachment: fixed;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* L'animation qui fait bouger les "explosions" de couleur */
+@keyframes moveBackground {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 100%; }
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* --- Header et Input --- */
+.futuristic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+h1 span {
+  color: var(--primary-glow);
+  text-shadow: 0 0 20px rgba(100, 108, 255, 0.5);
+}
+
+.status-zone input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  padding: 10px 15px;
+  border-radius: 12px;
+  color: white;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.status-zone input:focus {
+  border-color: var(--primary-glow);
+  box-shadow: 0 0 15px rgba(100, 108, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Tableau Glassmorphism --- */
+.table-wrapper {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px); /* Effet de flou derrière le tableau */
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* En-têtes des jours */
+thead th {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: #aaa;
+  border-bottom: 2px solid var(--glass-border);
+}
+
+/* Colonne des heures */
+td:first-child {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--primary-glow);
+  font-weight: 800;
+  font-size: 0.8rem;
+  border-right: 1px solid var(--glass-border);
+}
+
+/* Style général des cases */
+td, th {
+  padding: 15px;
+  border: 0.5px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Surlignage du Jour Actuel --- */
+.today-column {
+  color: white !important;
+  background: rgba(100, 108, 255, 0.1) !important;
+  border-bottom: 3px solid var(--primary-glow) !important;
+}
+
+/* --- Tes Classes de Matières (PRÉSERVÉES) --- */
+.Физика { background-color: rgba(52, 152, 219, 0.15); border-left: 5px solid #3498db; }
+.Математика { background-color: rgba(46, 204, 113, 0.15); border-left: 5px solid #2ecc71; }
+.Иностранныйязык { background-color: rgba(230, 126, 34, 0.15); border-left: 5px solid #e67e22; }
+.Физическаякультураиsport { background-color: rgba(231, 76, 60, 0.15); border-left: 5px solid #e74c3c; }
+.Персональнаяэффективность { background-color: rgba(155, 89, 182, 0.15); border-left: 5px solid #9b59b6; }
+.ИсторияРоссии { background-color: rgba(241, 196, 15, 0.15); border-left: 5px solid #f1c40f; }
+.Общаятеориясистеми { background-color: rgba(26, 188, 156, 0.15); border-left: 5px solid #1abc9c; }
+.Профессиональный, .Объектно-ориентированное {
+  background-color: rgba(52, 73, 94, 0.3);
+  border-left: 5px solid #34495e;
+}
+
+/* --- Animations et Effets --- */
+td:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  cursor: crosshair;
+}
+
+small {
+  opacity: 0.7;
+  font-size: 0.75rem;
+  display: block;
+  margin-top: 5px;
+}
+
+em {
+  font-size: 0.7rem;
+  font-style: normal;
+  color: var(--primary-glow);
+  text-transform: uppercase;
+}
+
+/* --- Mode Mobile (Responsive) --- */
+@media (max-width: 768px) {
+  .futuristic-header { text-align: center; justify-content: center; }
+  td, th { padding: 8px; font-size: 0.7rem; }
+  .container { padding: 10px; }
+}
+.container::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  /* Crée un effet de petits points/étoiles */
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 100px 100px;
+  opacity: 0.1;
+  z-index: -1;
+  animation: starsTwinkle 4s infinite blue;
+  pointer-events: none;
+}
+
+@keyframes starsTwinkle {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.1); }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #050508; /* Fond très noir pour faire ressortir les explosions */
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* On crée 3 zones d'explosions différentes */
+body::before, body::after, .container::before {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Explosion 1 : Rose/Rouge */
+body::before {
+  width: 200px; height: 200px;
+  top: 20%; left: 15%;
+  background: radial-gradient(circle, #ff0066 0%, transparent 70%);
+  animation: explode 4s infinite ease-out;
+}
+
+/* Explosion 2 : Bleue */
+body::after {
+  width: 300px; height: 300px;
+  top: 50%; right: 10%;
+  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+  animation: explode 6s infinite ease-out 1s; /* Décalage de 1s */
+}
+
+/* Explosion 3 : Violette */
+.container::before {
+  width: 250px; height: 250px;
+  bottom: 10%; left: 40%;
+  background: radial-gradient(circle, #9d00ff 0%, transparent 70%);
+  animation: explode 5s infinite ease-out 2s; /* Décalage de 2s */
+}
+
+/* L'ANIMATION DE L'EXPLOSION */
+@keyframes explode {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6; /* Le flash de l'explosion */
+  }
+  50% {
+    transform: scale(1.5); /* L'expansion */
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0; /* Disparition */
+  }
+}
+.typing-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid var(--primary-glow); /* Le curseur qui clignote */
+  animation: 
+    typing 2s steps(20, end), 
+    blink-caret 0.75s step-end infinite;
+}
+
+/* Animation de l'écriture (dévoile le texte) */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Animation du curseur clignotant */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--primary-glow) }
+}
+.langue-indicator {
+  font-size: 0.9rem;
+  color: var(--primary-glow);
+  opacity: 0.6;
+  margin-top: -10px;
+  font-style: italic;
+  text-align: center;
+}
+
+.welcome-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100px; /* Évite que le tableau saute quand le texte change */
+}
