@@ -4,23 +4,46 @@
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
 }
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  width: 100%;
   min-height: 100vh;
-  background-color: #0a0a0c;
-  /* On crée plusieurs couches de couleurs */
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 0, 100, 0.2) 0%, transparent 20%),
-    radial-gradient(circle at 80% 70%, rgba(0, 200, 255, 0.2) 0%, transparent 25%),
-    radial-gradient(circle at 50% 50%, rgba(150, 0, 255, 0.15) 0%, transparent 30%),
-    radial-gradient(circle at 80% 20%, rgba(255, 200, 0, 0.15) 0%, transparent 20%);
-  background-size: 200% 200%; /* On agrandit le fond pour pouvoir le faire bouger */
-  animation: moveBackground 15s infinite alternate ease-in-out;
-  background-attachment: fixed;
-  color: white;
+  background-color: #050505; /* Fond très noir */
   overflow-x: hidden;
+  position: relative;
 }
 
+/* Les cercles de couleur derrière */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.4;
+  animation: float 20s infinite alternate;
+}
+
+body::before {
+  background: #7000ff; /* Violet */
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  background: #00c2ff; /* Bleu */
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50vw, 30vh) scale(1.5); }
+}
 /* L'animation qui fait bouger les "explosions" de couleur */
 @keyframes moveBackground {
   0% { background-position: 0% 0%; }
@@ -184,15 +207,6 @@ em {
   50% { opacity: 0.15; transform: scale(1.1); }
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: #050508; /* Fond très noir pour faire ressortir les explosions */
-  color: white;
-  overflow-x: hidden;
-  position: relative;
-}
-
 /* On crée 3 zones d'explosions différentes */
 body::before, body::after, .container::before {
   content: "";
@@ -256,6 +270,7 @@ body::after {
     blink-caret 0.75s step-end infinite;
 }
 
+
 /* Animation de l'écriture (dévoile le texte) */
 @keyframes typing {
   from { width: 0 }
@@ -281,4 +296,217 @@ body::after {
   flex-direction: column;
   align-items: center;
   min-height: 100px; /* Évite que le tableau saute quand le texte change */
+}
+/* --- RESPONSIVE : STYLE UNIVERSITÉ --- */
+
+/* Par défaut (Mac/iPad), on cache la version mobile */
+.mobile-schedule {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* 1. On cache le tableau qui cause le zoom */
+  .table-wrapper {
+    display: none;
+  }
+
+  /* 2. On affiche la liste verticale */
+  .mobile-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    padding-bottom: 50px;
+  }
+
+  .mobile-day-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-day-title {
+    color: var(--primary-glow);
+    font-size: 1.4rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 5px;
+    margin-left: 5px;
+  }
+
+  /* Style des cartes de cours */
+  .course-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+  }
+
+  .course-time {
+    font-weight: 800;
+    color: var(--primary-glow);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .course-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: white;
+  }
+
+  .course-info {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+/* 1. Empêche le titre de faire déborder l'écran */
+.welcome-zone {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* 2. Donne du style aux cartes (pour qu'elles ressemblent à ton université) */
+.mobile-day-section {
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.course-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); /* Obligatoire pour iPhone/Safari */
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 3. Ajuste la taille de l'input pour qu'il soit cliquable sur iPhone */
+.status-zone input {
+  font-size: 16px !important; /* En dessous de 16px, l'iPhone zoom de force */
+  width: 80%;
+  max-width: 300px;
+}
+
+/* 4. Fix pour les boutons de semaine qui se chevauchent parfois */
+.week-selector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.week-selector button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  color: white;
+  border: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+.week-selector button.active {
+  background: var(--primary-glow);
+  border-color: var(--primary-glow);
+}
+/* Empêche la barre d'animation de dépasser */
+.welcome-zone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 80px;
+  overflow: hidden; /* Coupe ce qui dépasse */
+}
+/* Force l'affichage sur mobile */
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none !important; /* Cache le tableau qui est trop large */
+  }
+  .mobile-schedule {
+    display: block !important; /* Affiche les cartes */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .course-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+}
+.gradient-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(
+    to right, 
+    #fff 20%, 
+    #7000ff 40%, 
+    #00c2ff 60%, 
+    #fff 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+@media (max-width: 768px) {
+  .gradient-text { font-size: 1.8rem; }
+}
+.background-blobs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Derrière tout le contenu */
+  overflow: hidden;
+  pointer-events: none; /* Pour pouvoir cliquer sur tes boutons à travers */
+}
+
+.blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(112, 0, 255, 0.4) 0%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+  animation: move 20s infinite alternate ease-in-out;
+}
+
+.blob.blue {
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.4) 0%, transparent 70%);
+  right: -100px;
+  bottom: -100px;
+  animation-delay: -10s;
+}
+
+@keyframes move {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30vw, 20vh) scale(1.2); }
+  66% { transform: translate(-10vw, 40vh) scale(0.8); }
+  100% { transform: translate(10vw, -10vh) scale(1.1); }
 }

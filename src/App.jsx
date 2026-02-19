@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   // --- TES ÉTATS (LA MÉMOIRE DU SITE) ---
-  const [nom, setNom] = useState("JUSTIN PRECIEUX");
+  const [nom, setNom] = useState("JUSTIN");
   const [semaineHaute, setSemaineHaute] = useState(true);
   const [date, setDate] = useState(new Date());
   const [indexLangue, setIndexLangue] = useState(0);
@@ -31,30 +31,36 @@ function App() {
   const jourActuel = date.getDay();
 
   return (
-    <div className="week-selector">
-  <button 
-    className={semaineHaute ? "active" : ""} 
-    onClick={() => setSemaineHaute(true)}
-  >
-    Верхняя неделя
-  </button>
-  <button 
-    className={!semaineHaute ? "active" : ""} 
-    onClick={() => setSemaineHaute(false)}
-  >
-    Нижняя неделя
-  </button>
     <div className="container">
-      <header className="futuristic-header">
-       <div className="welcome-zone">
-       {/* La 'key' est obligatoire pour relancer l'animation à chaque changement de langue */}
-       <h1 key={indexLangue} className="typing-text">
-       {salutations[indexLangue].texte} {nom}
-       </h1>
-       
+     <header className="futuristic-header">
+  <div className="welcome-zone">
+    <h1 key={indexLangue} className="gradient-text">
+      {salutations[indexLangue].texte} {nom}
+    </h1>
+  </div>
+  <div className="status-zone">
+    <input 
+      type="text" 
+      value={nom} 
+      onChange={(e) => setNom(e.target.value.toUpperCase())}
+      className="modern-input"
+    />
+  </div>
+</header>
+       <div className="week-selector">
+      <button 
+       className={semaineHaute ? "active" : ""} 
+        onClick={() => setSemaineHaute(true)}
+       >
+       Верхняя неделя
+     </button>
+      <button 
+       className={!semaineHaute ? "active" : ""} 
+       onClick={() => setSemaineHaute(false)}
+      >
+    Нижняя неделя
+     </button>
       </div>
-      </header>
-
       <div className="table-wrapper">
         <table>
           <thead>
@@ -335,8 +341,85 @@ function App() {
           </tbody>
         </table>
       </div>
+      {/* VERSION MOBILE COMPLETE */}
+      <div className="mobile-schedule">
+        <div className="mobile-day-section">
+          <h3 className="mobile-day-title">
+            {semaineHaute ? "Верхняя неделя" : "Нижняя неделя"}
+          </h3>
+
+          {/* LUNDI */}
+          <div className="mobile-day-label">Понедельник</div>
+          <div className="course-card Иностранныйязык">
+            <div className="course-time">09:00 - 10:35</div>
+            <div className="course-name">Иностранный язык</div>
+            <div className="course-info">📍 Каф. ИЯКТ</div>
+          </div>
+          <div className="course-card Физика">
+            <div className="course-time">10:50 - 12:25</div>
+            <div className="course-name">Физика (Лекции)</div>
+            <div className="course-info">📍 Л-556 | Гервиц Н.Е.</div>
+          </div>
+          <div className="course-card Физика">
+            <div className="course-time">12:40 - 14:15</div>
+            <div className="course-name">{semaineHaute ? "Физика (Лаб)" : "Физика (Лек)"}</div>
+            <div className="course-info">📍 {semaineHaute ? "Л-551 | Рычкова О.В." : "Л-556 | Гервиц Н.Е."}</div>
+          </div>
+
+          {/* MARDI */}
+          <div className="mobile-day-label">Вторник</div>
+          <div className="course-card Физическаякультураиsport">
+            <div className="course-time">10:50 - 12:25</div>
+            <div className="course-name">Физкультура</div>
+          </div>
+          <div className="course-card Персональнаяэффективность">
+            <div className="course-time">12:40 - 14:15</div>
+            <div className="course-name">Персональная эффективность</div>
+            <div className="course-info">📍 {semaineHaute ? "А-525" : "А-524"} | Бакирова Д.М.</div>
+          </div>
+          <div className="course-card Профессиональный">
+            <div className="course-time">14:30 - 16:05</div>
+            <div className="course-name">Проф. инструментарий (Лек)</div>
+            <div className="course-info">📍 Л-556 | Григорьев S.V.</div>
+          </div>
+
+          {/* MERCREDI */}
+          <div className="mobile-day-label">Среда</div>
+          <div className="course-card Иностранныйязык">
+            <div className="course-time">09:00 - 10:35</div>
+            <div className="course-name">{semaineHaute ? "Иностранный язык" : "Общая теория систем (Лек)"}</div>
+            <div className="course-info">📍 {semaineHaute ? "Каф. ИЯКТ" : "Б-734 | Белых П.В."}</div>
+          </div>
+          <div className="course-card Физика">
+            <div className="course-time">10:50 - 12:25</div>
+            <div className="course-name">{semaineHaute ? "Физика (Прак)" : "Проф. инструментарий (Лаб)"}</div>
+            <div className="course-info">📍 {semaineHaute ? "Л-643 | Забенков И.В." : "Л-529-УВЦ | Домашов А.П."}</div>
+          </div>
+
+          {/* JEUDI */}
+          <div className="mobile-day-label">Четверг</div>
+          <div className="course-card Математика">
+            <div className="course-time">10:50 - 12:25</div>
+            <div className="course-name">Математика (Лек)</div>
+            <div className="course-info">📍 Л-556 | Казанцев А.В.</div>
+          </div>
+          <div className="course-card Общаятеориясистеми">
+            <div className="course-time">12:40 - 14:15</div>
+            <div className="course-name">Общая теория систем (Прак)</div>
+            <div className="course-info">📍 Л-531-УВЦ | Леонтьева Д.С.</div>
+          </div>
+
+          {/* VENDREDI */}
+          <div className="mobile-day-label">Пятница</div>
+          <div className="course-card Математика">
+            <div className="course-time">10:50 - 12:25</div>
+            <div className="course-name">Математика (Прак)</div>
+            <div className="course-info">📍 Л-634 | Терентьев А.В.</div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+    
   );
 }
 
